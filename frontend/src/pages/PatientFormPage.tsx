@@ -303,8 +303,13 @@ export function PatientFormPage() {
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Stack spacing={3}>
-        <Box display="flex" justifyContent="space-between" alignItems="center" gap={2}>
-          <Box>
+        <Stack
+          direction={{ xs: 'column-reverse', sm: 'row' }}
+          justifyContent="space-between"
+          alignItems={{ xs: 'flex-start', sm: 'center' }}
+          gap={2}
+        >
+          <Box sx={{ minWidth: 0 }}>
             <Typography variant="h4" component="h1" gutterBottom>
               {pageTitle}
             </Typography>
@@ -313,10 +318,15 @@ export function PatientFormPage() {
             </Typography>
           </Box>
 
-          <Button variant="text" startIcon={<ArrowBackRoundedIcon />} onClick={() => navigate('/')}>
+          <Button
+            variant="text"
+            startIcon={<ArrowBackRoundedIcon />}
+            onClick={() => navigate('/')}
+            sx={{ alignSelf: { xs: 'stretch', sm: 'flex-start' } }}
+          >
             Voltar para a lista
           </Button>
-        </Box>
+        </Stack>
 
         {loadingPatient ? (
           <Card sx={{ borderRadius: 2 }}>
@@ -505,8 +515,26 @@ export function PatientFormPage() {
                   </Grid>
                 </Grid>
 
-                <Box display="flex" justifyContent="flex-end" gap={2} pt={1}>
-                  <Button variant="text" color="inherit" onClick={() => navigate('/')}>
+                <Box
+                  display="flex"
+                  justifyContent={{ xs: 'center', sm: 'flex-end' }}
+                  flexWrap="wrap"
+                  gap={2}
+                  pt={1}
+                >
+                  <Button
+                    variant="outlined"
+                    onClick={() => navigate('/')}
+                    sx={{
+                      borderColor: 'rgba(204, 75, 75, 0.24)',
+                      color: '#b04444',
+                      bgcolor: 'rgba(204, 75, 75, 0.06)',
+                      '&:hover': {
+                        borderColor: '#b04444',
+                        bgcolor: 'rgba(204, 75, 75, 0.12)',
+                      },
+                    }}
+                  >
                     Cancelar
                   </Button>
 
@@ -515,6 +543,18 @@ export function PatientFormPage() {
                     variant="contained"
                     startIcon={<SaveRoundedIcon />}
                     disabled={formik.isSubmitting || !formik.dirty || !formik.isValid}
+                    sx={{
+                      textAlign: 'center',
+                      bgcolor: 'primary.main',
+                      color: '#ffffff',
+                      '&:hover': {
+                        bgcolor: 'primary.dark',
+                      },
+                      '&.Mui-disabled': {
+                        bgcolor: 'rgba(0, 179, 173, 0.28)',
+                        color: 'rgba(255,255,255,0.82)',
+                      },
+                    }}
                   >
                     {formik.isSubmitting ? 'Salvando...' : isEditMode ? 'Salvar alterações' : 'Cadastrar paciente'}
                   </Button>
